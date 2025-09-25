@@ -2,8 +2,9 @@ import os
 from telegram import Update
 from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, ContextTypes, filters
 
-# Pega o token do BotFather que você configurou no Render
-BOT_TOKEN = os.environ["BOT_TOKEN"]
+BOT_TOKEN = os.getenv("BOT_TOKEN")
+if not BOT_TOKEN:
+    raise RuntimeError("Variável de ambiente BOT_TOKEN não definida no Render. Adicione em Settings → Environment.")
 
 # Início do bot (com termos de uso)
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -42,3 +43,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
